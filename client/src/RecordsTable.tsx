@@ -14,6 +14,8 @@ function RecordsTable(props: Props) {
     ProcurementRecord | undefined
   >();
 
+  let today:Date = new Date();
+  let closedDateString = "";
   const columns = React.useMemo<ColumnType<ProcurementRecord>[]>(() => {
     return [
       {
@@ -49,7 +51,28 @@ function RecordsTable(props: Props) {
       },
       {
         title: "Stage",
-        render: (record: ProcurementRecord) => record.stage,
+        render: (record: ProcurementRecord) => {
+          if (record.stage == "TENDER") {
+            if (record.closed_date == null) {
+              closedDateString = "Open";  
+            } else if (new Date(record.closed_date) > today) {
+              closedDateString = "Open until " + new Date(record.closed_date).toLocaleDateString();
+            } else {
+              closedDateString = "Closed";
+            }
+            return (
+              <p>
+                {closedDateString}
+              </p>
+            );
+          } else if (record.stage == "CONTRACT") {
+            return (
+              <p>
+                Awarded on {new Date(record.award_date).toLocaleDateString()}
+              </p>
+            );  
+          }          
+        },
       },
     ];
   }, []);

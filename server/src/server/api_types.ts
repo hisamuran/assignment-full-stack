@@ -18,6 +18,8 @@ export type ProcurementRecordDto = {
   value: number;
   currency: string;
   stage: string;
+  award_date: string;
+  closed_date: string;
 };
 
 export type RecordSearchResponse = {
