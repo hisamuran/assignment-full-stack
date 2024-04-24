@@ -13,6 +13,9 @@ export type ProcurementRecord = {
     id: string;
     name: string;
   };
+  value: number;
+  currency: string;
+  stage: string;
 };
 
 export type SearchRecordsResponse = {
